@@ -1,0 +1,142 @@
+@import "../../responsive.scss";
+
+.searchBar {
+  .search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+
+    .search-input {
+      flex: 2;
+      min-width: 200px;
+      
+      .MuiOutlinedInput-root {
+        background-color: white;
+      }
+    }
+
+    .filter-button {
+      flex: 0 0 auto;
+      height: 40px;
+      text-transform: none;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .search-button {
+      flex: 0 0 auto;
+      height: 40px;
+      text-transform: none;
+      font-weight: 500;
+      background-color: #1a73e8;
+      color: white;
+
+      &:hover {
+        background-color: #1557b0;
+      }
+
+      .search-icon {
+        width: 20px;
+        height: 20px;
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    @include sm {
+      flex-direction: column;
+      width: 100%;
+      
+      .search-input,
+      .filter-button,
+      .search-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+}
+
+// Filter Drawer Styles
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+
+  .MuiFormControl-root {
+    margin-bottom: 15px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .MuiTextField-root {
+      flex: 1;
+    }
+
+    .filter-separator {
+      color: #666;
+      font-weight: bold;
+    }
+  }
+}
+
+.filter-actions {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .MuiDrawer-paper {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .filter-section {
+    padding: 10px;
+  }
+}
+
+// Override Material-UI styles
+.MuiDrawer-paper {
+  width: 350px;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.MuiFormControlLabel-root {
+  margin-left: -5px;
+  margin-right: 0;
+  width: 100%;
+}
+
+.MuiButton-contained {
+  text-transform: none !important;
+  font-weight: 500 !important;
+}
+
+.MuiButton-outlined {
+  text-transform: none !important;
+}

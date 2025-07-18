@@ -1,0 +1,108 @@
+.newPostPage {
+  height: 100%;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+
+  .formContainer {
+    flex: 3;
+    overflow: scroll;
+
+    .wrapper {
+      margin: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .item {
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-bottom: 15px;
+
+          label {
+          }
+
+          input {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid gray;
+          }
+
+          select {
+            padding: 19px;
+          }
+
+          &.description {
+            width: 100%;
+            height: 320px;
+
+            .quill > .ql-container > .ql-editor{
+              height: 200px;
+              font-size: 16px;
+            }
+          }
+          
+          &.checkbox-group {
+            width: 100%;
+            
+            .checkbox-container {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 20px;
+              margin-top: 10px;
+              
+              .checkbox-label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                font-size: 14px;
+                
+                input[type="checkbox"] {
+                  width: 18px;
+                  height: 18px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+        
+        .sendButton {
+          width: 30%;
+          border-radius: 5px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .sideContainer {
+    flex: 2;
+    background-color: #fcf5f3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 50%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+}

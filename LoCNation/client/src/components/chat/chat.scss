@@ -1,0 +1,172 @@
+.chat {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: auto;
+  background-color: #ffffff; 
+  color: rgb(255, 253, 253); 
+
+  .messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto; 
+    padding: 15px;
+    border-bottom: 1px solid #800707;
+
+    h1 {
+      font-weight: 400;
+      color: white;
+    }
+
+    .message {
+      background-color: #e1e1e1; 
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #444;
+      color: rgb(6, 5, 5);
+
+      &:hover {
+        background-color: #333;
+      }
+
+      span {
+        font-weight: bold;
+        color: rgb(59, 10, 10);
+      }
+    }
+  }
+
+  .chatBox {
+    flex: 1;
+    background-color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+
+    .top {
+      background-color: #333;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .center {
+      height: 350px;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .bottom {
+      border-top: 2px solid #444;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #222;
+
+      input {
+        flex: 3;
+        height: 100%;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #333;
+        color: white;
+        outline: none;
+      }
+
+      button {
+        flex: 1;
+        background-color: #f7c14b85;
+        height: 100%;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        color: black;
+      }
+    }
+  }
+
+  .chatMessage {
+    display: flex;
+    align-items: center;
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 0 10px;
+      border: 1px solid #ddd;
+    }
+
+    .messageBubble {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 60%;
+      font-size: 14px;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: #aaa;
+      display: block;
+      margin-top: 5px;
+    }
+
+    &.own {
+      align-self: flex-end;
+
+      .messageBubble {
+        background-color: #f7c14b85; 
+        color: black;
+        text-align: right;
+      }
+    }
+
+    &:not(.own) .messageBubble {
+      background-color: white; 
+      text-align: left;
+    }
+  }
+}
+.message {
+  position: relative;
+
+  .unreadBadge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(153, 0, 0);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+}

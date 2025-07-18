@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js" // Specifies that Prisma will generate a JavaScript client
+}
+
+datasource db {
+  provider = "mongodb" // Defines MongoDB as the database provider
+  url      = env("DATABASE_URL") // Loads the database URL from environment variables
+}
+
+/////////////////////////////////////////////////////////////
+// Post Model (Represents a listing in the system)
+/////////////////////////////////////////////////////////////
+model Post {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId // Unique ID
+  title           String // Title of the post
+  price           Int // Price of the listing
+  images          String[] // Array of image URLs
+  address         String // Address of the property
+  city            String // City where the property is located
+  bedroom         Int // Number of bedrooms
+  bathroom        Int // Number of bathrooms
+  latitude        String // Latitude coordinate for the location
+  longitude       String // Longitude coordinate for the location
+  type            Type // Type of post (e.g., rent)
+  property        Property // Type of property (e.g., house, apartment, etc.)
+  locationType    LocationType? // Type of location (indoor/outdoor)
+  genre          Genre?        // Genre of the property (Action, Horror, etc.)
+  createdAt       DateTime    @default(now()) // Timestamp for when the post was created
+  user            User        @relation(fields: [userId], references: [id]) // Relation to the user who created the post
+  userId          String      @db.ObjectId // Foreign key linking to the user
+  postDetail      PostDetail? // Additional post details (optional)
+  savedPosts      SavedPost[] // Relation to users who saved this post
+}
+
+/////////////////////////////////////////////////////////////
+// Enum Types (Define fixed values for certain fields)
+/////////////////////////////////////////////////////////////
+enum Type {
+  rent // Currently only one type, but can be extended in the future
+}
+
+enum Property {
+  apartment
+  house
+  condo
+  land
+}
+
+enum LocationType {
+  indoor
+  outdoor
+}
+
+enum Genre {
+  Action
+  Horror
+  SciFi
+  Romance
+  Historical
+  Drama
+  Fantasy
+}
+
+/////////////////////////////////////////////////////////////
+// PostDetail Model (Additional information about a post)
+/////////////////////////////////////////////////////////////
+model PostDetail {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId // Unique ID
+  desc       String // Description of the post
+  utilities  String? // Utilities included (optional)
+  pet        String? // Pet policy (optional)
+  income     String? // Income requirements (optional)
+  size       Int? // Size of the property (optional)
+  school     Int? // School rating (optional)
+  bus        Int? // Bus station proximity (optional)
+  restaurant Int? // Nearby restaurant rating (optional)
+  hasFilmingPermit Boolean? // Whether the property has filming permit
+  hasStudio Boolean? // Whether the property has a studio
+  hasPower Boolean? // Whether the property has power supply
+  crewSize Int? // Number of crew members the property can accommodate
+  availableParking Boolean? // Whether parking is available
+  post       Post    @relation(fields: [postId], references: [id]) // Relation to the parent post
+  postId     String  @unique @db.ObjectId // Foreign key linking to the post
+}
+
+/////////////////////////////////////////////////////////////
+// SavedPost Model (Tracks posts saved by users)
+/////////////////////////////////////////////////////////////
+model SavedPost {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId // Unique ID
+  user      User     @relation(fields: [userId], references: [id]) // Relation to the user who saved the post
+  post      Post     @relation(fields: [postId], references: [id]) // Relation to the saved post
+  userId    String   @db.ObjectId // Foreign key linking to the user
+  postId    String   @db.ObjectId // Foreign key linking to the post
+  createdAt DateTime @default(now()) // Timestamp for when the post was saved
+
+  @@unique([userId, postId])  // Ensures that a user cannot save the same post multiple times
+}
+
+/////////////////////////////////////////////////////////////
+// User Model (Represents users in the system)
+/////////////////////////////////////////////////////////////
+model User {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId // Unique ID
+  email      String      @unique // Email address (must be unique)
+  username   String      @unique // Username (must be unique)
+  password   String // Hashed password
+  avatar     String? // User profile picture (optional)
+  createdAt  DateTime    @default(now()) // Timestamp for account creation
+  posts      Post[] // Relation to posts created by the user
+  savedPosts SavedPost[] // Relation to posts saved by the user
+  chats      Chat[]      @relation(fields: [chatIDs], references: [id]) // Relation to user chats
+  chatIDs    String[]    @db.ObjectId // Stores chat IDs the user is part of
+}
+
+/////////////////////////////////////////////////////////////
+// Chat Model (Handles user-to-user conversations)
+/////////////////////////////////////////////////////////////
+model Chat {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId // Unique chat ID
+  users      User[]    @relation(fields: [userIDs], references: [id]) // Users participating in the chat
+  userIDs    String[]  @db.ObjectId // Stores IDs of users in the chat
+  createdAt  DateTime  @default(now()) // Timestamp for when the chat was created
+  seenBy     String[]  @db.ObjectId // Tracks which users have seen the chat
+  messages   Message[] // Messages exchanged in this chat
+  lastMessage String? // Stores the last message for quick preview
+}
+
+/////////////////////////////////////////////////////////////
+// Message Model (Handles messages sent within chats)
+/////////////////////////////////////////////////////////////
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId // Unique message ID
+  text      String // The message content
+  userId    String // ID of the sender
+  chat      Chat     @relation(fields: [chatId], references: [id]) // Relation to the chat it belongs to
+  chatId    String   @db.ObjectId // Foreign key linking to the chat
+  createdAt DateTime @default(now()) // Timestamp for when the message was sent
+}

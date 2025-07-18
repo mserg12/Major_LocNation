@@ -1,0 +1,9 @@
+[
+  { "value": "Action", "label": "Action" },
+  { "value": "Horror", "label": "Horror" },
+  { "value": "Sci-Fi", "label": "Sci-Fi" },
+  { "value": "Romance", "label": "Romance" },
+  { "value": "Historical", "label": "Historical" },
+  { "value": "Drama", "label": "Drama" },
+  { "value": "Fantasy", "label": "Fantasy" }
+]
